@@ -21,18 +21,15 @@ dis=zeros(n,p,m);
 disbar=zeros(n,m);
 devbar=zeros(n,m);
 dev=zeros(n,p,m);
-beta=100;
+beta=25;
 prevdisbar=zeros(n,m);
 comparison2=1;
 s=zeros(n,m);
 
 %initializing prevmf
 for i=1:n
-    for k=1:n
-        if(i==k)
-        prevmf(i,:,k)= 0;
-        end
-    end
+        prevmf(i,:,i)= 0;
+        
 end 
 mf=prevmf;
 %initializing dis and disbar

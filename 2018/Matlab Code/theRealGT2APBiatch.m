@@ -81,15 +81,17 @@ devbar1=(sum(dev1,2))/p;
 devbar2=(sum(dev2,2))/p;
 
 
-    mf1=exp(1).^((dev1.^beta(iter,1))./B1.^beta(iter,1));
-    mf2=exp(1).^((dev2.^beta(iter,2))./B2.^beta(iter,2));
-
+    mf1=exp(1).^(-(dev1.^beta(iter,1))./B1.^beta(iter,1));
+    mf2=exp(1).^(-(dev2.^beta(iter,2))./B2.^beta(iter,2));
+    mf1(isnan(mf1))=0;
+    mf2(isnan(mf2))=0;
+    
 prevmf1=mf1;
 prevmf2=mf2;
 comparison2=0;
 
-G1=abs(prevdisbar1(I,K)-disbar1(I,K));
-G2=abs(prevdisbar2(I,K)-disbar2(I,K));
+G1=abs(prevdisbar1(i,k)-disbar1(i,k));
+G2=abs(prevdisbar2(i,k)-disbar2(i,k));
 
 if sum(sum(G1>0.01))~=0 || sum(sum(G1>0.01))~=0
     comparison2=1;
@@ -332,6 +334,9 @@ parfor i=1:n
           if round(max(points(:,i,j,k))*10000)/10000~=round(min(points(:,i,j,k))*10000)/10000
               secgrade= fit(points(:,i,j,k),alpha(:,i,j,k),'gauss3');
               while mfdown(i,j,k)<=mftemp(i,j,k) && mftemp(i,j,k)<=mfup(i,j,k)
+%                    if secgrade(mftemp(i,j,k))<0
+%                      secgrade(mftemp(i,j,k))=0;
+                  %end
                  sum5(i,j,k)= sum5(i,j,k)+ mftemp(i,j,k)*secgrade(mftemp(i,j,k));
                  sum6(i,j,k)= sum6(i,j,k) + secgrade(mftemp(i,j,k));
                  mftemp(i,j,k)=mftemp(i,j,k)+update;
