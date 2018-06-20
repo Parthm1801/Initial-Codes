@@ -76,6 +76,7 @@ for l=1:20
     
 sum21=sum((dis1.*prevmf1),2);
 sum31=sum(prevmf1,2);
+sum31=(sum31<=0)+sum31;
 disbar1=sum21./sum31;
 disbar1(isnan(disbar1))=0;
 
@@ -145,11 +146,14 @@ parfor i=1:n
 %               sum6(i,j,k)=0;
 %           else
           if round(max(points(:,i,j,k))*10000)/10000~=round(min(points(:,i,j,k))*10000)/10000
-              secgrade= fit(points(:,i,j,k),alpha(:,i,j,k),'cubicinterp');
+              secgrade= fit(points(:,i,j,k),alpha(:,i,j,k),'gauss3');
+       
               while mfdown(i,j,k)<=mftemp(i,j,k) && mftemp(i,j,k)<=mfup(i,j,k)
-                 sum5(i,j,k)= sum5(i,j,k)+ mftemp(i,j,k)*secgrade(mftemp(i,j,k));
-                 sum6(i,j,k)= sum6(i,j,k) + secgrade(mftemp(i,j,k));
+               
+                 sum5(i,j,k)= sum5(i,j,k)+ mftemp(i,j,k)*abs(secgrade(mftemp(i,j,k)));
+                 sum6(i,j,k)= sum6(i,j,k) + abs(secgrade(mftemp(i,j,k)));
                  mftemp(i,j,k)=mftemp(i,j,k)+update;
+                
               end
           else
               sum5(i,j,k)=1;

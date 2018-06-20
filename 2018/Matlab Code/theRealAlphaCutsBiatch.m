@@ -76,6 +76,7 @@ for l=1:20
     
 sum21=sum((dis1.*prevmf1),2);
 sum31=sum(prevmf1,2);
+sum31=(sum31<=0)+sum31;
 disbar1=sum21./sum31;
 disbar1(isnan(disbar1))=0;
 
@@ -135,7 +136,6 @@ secgrade=zeros(n,p,n);
 mftemp=mfdown;
 sum5=zeros(n,p,n);
 sum6=sum5;
-parpool(8);
 parfor i=1:n
     tic
     for k=1:n
@@ -149,12 +149,11 @@ parfor i=1:n
               secgrade= fit(points(:,i,j,k),alpha(:,i,j,k),'gauss3');
        
               while mfdown(i,j,k)<=mftemp(i,j,k) && mftemp(i,j,k)<=mfup(i,j,k)
-                  if secgrade(mftemp(i,j,k))<0
-                     secgrade(mftemp(i,j,k))=0;
-                  end
-                 sum5(i,j,k)= sum5(i,j,k)+ mftemp(i,j,k)*secgrade(mftemp(i,j,k));
-                 sum6(i,j,k)= sum6(i,j,k) + secgrade(mftemp(i,j,k));
+               
+                 sum5(i,j,k)= sum5(i,j,k)+ mftemp(i,j,k)*abs(secgrade(mftemp(i,j,k)));
+                 sum6(i,j,k)= sum6(i,j,k) + abs(secgrade(mftemp(i,j,k)));
                  mftemp(i,j,k)=mftemp(i,j,k)+update;
+                
               end
           else
               sum5(i,j,k)=1;

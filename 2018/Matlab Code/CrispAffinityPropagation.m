@@ -47,7 +47,7 @@ N=size(S,1);
 A=zeros(N,N); %Initalizing availability matrix to zero
 R=zeros(N,N); %Initalizing responsibility matrix to zero
 S=S+(eps*randn(N,N))*(max(S(:))-min(S(:))); % Remove degeneracies
-lam=0.5; % Set damping factor
+lam=0.9; % Set damping factor
 
 
 for i=1:100 %number of iterations set to 100, can be changed depending on dataset
@@ -151,3 +151,7 @@ for i=1:n
 end
 
 disp(acc);
+
+color=(idx+44)/(sum(uidx));
+%color=[color color color]+[rand() rand() rand()]
+scatter3(x(:,2),x(:,3),x(:,4),100,color,'filled');

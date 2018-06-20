@@ -12,10 +12,10 @@ plot(betaIT2,acc2,'blue');
 title('Recognition Rate vs Beta');
 xlabel('Beta');
 %ylabel('Recognition Rate(%)');
-legend('Type-1 AP','Interval Type-2 AP');
-scatter(betaT1,acc1,'red','filled');
-scatter(betaIT2,acc2,'blue','filled');
 
+scatter(betaT1,acc1,'red');
+scatter(betaIT2,acc2,'blue','filled');
+legend('Type-1 AP','Interval Type-2 AP');
 %legend('Type-2 AP','Type-2 Data','Type-1 AP','Type-1 Data');
 ylim([0 100]);
 hold off

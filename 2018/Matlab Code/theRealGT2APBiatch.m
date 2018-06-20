@@ -80,9 +80,11 @@ dev2=abs(dis1-B2);
 devbar1=(sum(dev1,2))/p;
 devbar2=(sum(dev2,2))/p;
 
+P1=repmat(devbar1,1,p,1);
+P2=repmat(devbar2,1,p,1);
 
-    mf1=exp(1).^(-(dev1.^beta(iter,1))./B1.^beta(iter,1));
-    mf2=exp(1).^(-(dev2.^beta(iter,2))./B2.^beta(iter,2));
+    mf1=exp(1).^(-(dev1.^beta(iter,1))./P1.^beta(iter,1));
+    mf2=exp(1).^(-(dev2.^beta(iter,2))./P2.^beta(iter,2));
     mf1(isnan(mf1))=0;
     mf2(isnan(mf2))=0;
     
@@ -107,8 +109,8 @@ end
 
 mfdown=(mf1<=mf2).*mf1 + (mf1>mf2).*mf2;
 mfup=(mf1<=mf2).*mf2 + (mf1>mf2).*mf1;
-[arr1,arr2]=SG(x,mfup,mfdown);
-mf=arr1./(arr2.*(mfup-mfdown));
+
+mf=SG(x,mfup,mfdown);
 
 
 
@@ -196,7 +198,9 @@ disp([unique(idx),histc(idx,unique(idx))]);
 
 
 %%%%%%%%%%% Secondary function %%%%%%%%%%%%%%%%
-function [sum5,sum6]=SG(x,mfup,mfdown)
+function mf=SG(x,mfup,mfdown)
+
+
 
 beta1=2;
 beta2=5;
@@ -331,15 +335,19 @@ parfor i=1:n
     for k=1:n
         if i~=k
         for j=1:p
+%           if max(points(:,i,j,k))==min(points(:,i,j,k))
+%               sum5(i,j,k)=0;b 
+%               sum6(i,j,k)=0;
+%           else
           if round(max(points(:,i,j,k))*10000)/10000~=round(min(points(:,i,j,k))*10000)/10000
               secgrade= fit(points(:,i,j,k),alpha(:,i,j,k),'gauss3');
+       
               while mfdown(i,j,k)<=mftemp(i,j,k) && mftemp(i,j,k)<=mfup(i,j,k)
-%                    if secgrade(mftemp(i,j,k))<0
-%                      secgrade(mftemp(i,j,k))=0;
-                  %end
-                 sum5(i,j,k)= sum5(i,j,k)+ mftemp(i,j,k)*secgrade(mftemp(i,j,k));
-                 sum6(i,j,k)= sum6(i,j,k) + secgrade(mftemp(i,j,k));
+               
+                 sum5(i,j,k)= sum5(i,j,k)+ mftemp(i,j,k)*max(secgrade(mftemp(i,j,k)),0);
+                 sum6(i,j,k)= sum6(i,j,k) + max(secgrade(mftemp(i,j,k)),0);
                  mftemp(i,j,k)=mftemp(i,j,k)+update;
+               
               end
           else
               sum5(i,j,k)=1;
@@ -351,6 +359,28 @@ parfor i=1:n
     toc
 end
 
+% 
+% mftemp=mfdown;
+% 
+% sum5=0;
+% sum6=0;
+% 
+% if count~=9
+%      while mfdown<=mftemp && mftemp<=mfup
+%         sum5= sum5+ mftemp*secgrade(mftemp);
+%         sum6= sum6 + secgrade(mftemp);
+%         mftemp=mftemp+update;
+%       end
+% else
+%     sum5=1;
+%     sum6=1;
+% end
+% if sum5==0 && sum6==0
+%         sum6=1;
+%     end
+% toc
+sum6=(sum6<0.0001)+sum6;
+mf=sum5./(sum6.*(mfup-mfdown));
 end
 
     

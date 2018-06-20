@@ -21,7 +21,7 @@ dis=zeros(n,p,m);
 disbar=zeros(n,m);
 devbar=zeros(n,m);
 dev=zeros(n,p,m);
-beta=25;
+beta=1;
 prevdisbar=zeros(n,m);
 comparison2=1;
 s=zeros(n,m);
@@ -230,6 +230,11 @@ for i=1:n
 end
 
 disp(acc);
+
+color=(idx+44)/(sum(uidx));
+%color=[color color color]+[rand() rand() rand()]
+scatter3(x(:,2),x(:,3),x(:,4),100,color,'filled');
+%set(gca,'Color','k');
 % clust=unique(idx);
 % colors=[]
 % for i=1:size(clust,1)
