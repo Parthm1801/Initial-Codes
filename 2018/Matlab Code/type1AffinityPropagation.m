@@ -202,7 +202,7 @@ disp(idx)
 %     disp([i,idx(i)]);
 % end
 
-
+uidx=unique(idx);
 disp([unique(idx),histc(idx,unique(idx))]);
 acc=zeros(3,3);
 y=zeros(1,n);
@@ -231,13 +231,6 @@ end
 
 disp(acc);
 
+box on
 color=(idx+44)/(sum(uidx));
-%color=[color color color]+[rand() rand() rand()]
-scatter3(x(:,2),x(:,3),x(:,4),100,color,'filled');
-%set(gca,'Color','k');
-% clust=unique(idx);
-% colors=[]
-% for i=1:size(clust,1)
-%     colors=[colors;repmat([rand() rand() rand()],sum(idx==clust(i)),1)]
-% end
-% scatter(x,idx,10,colors,'filled')
+scatter3((x(:,2)-min(x(:,2)))/(max(x(:,2))-min(x(:,2))),(x(:,3)-min(x(:,3)))/(max(x(:,3))-min(x(:,3))),(x(:,4)-min(x(:,4)))/(max(x(:,4))-min(x(:,4))),100,color,'filled');

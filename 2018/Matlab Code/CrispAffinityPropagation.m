@@ -152,6 +152,6 @@ end
 
 disp(acc);
 
-color=(idx+44)/(sum(uidx));
+color=(idx)/(sum(uidx));
 %color=[color color color]+[rand() rand() rand()]
-scatter3(x(:,2),x(:,3),x(:,4),100,color,'filled');
+scatter3((x(:,2)-min(x(:,2)))/(max(x(:,2))-min(x(:,2))),(x(:,3)-min(x(:,3)))/(max(x(:,3))-min(x(:,3))),(x(:,4)-min(x(:,4)))/(max(x(:,4))-min(x(:,4))),100,color,'filled');
