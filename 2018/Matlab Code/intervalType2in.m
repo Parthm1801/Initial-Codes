@@ -41,10 +41,10 @@ for J=1:n
 end
         disbar=squeeze(sum(dis,2)/p);
 
-
+l=0;
 %iterations
 while comparison2==1
-    
+   l=l+1;
 sum2=sum((dis.*mf),2);
 sum3=sum(mf,2);
 disbar=sum2./sum3;
@@ -230,6 +230,7 @@ disp(acc);
 %     end
 % end
 % hold off
+disp(l);
 color=(idx+44)/(sum(uidx));
 %color=[color color color]+[rand() rand() rand()]
 scatter3((x(:,2)-min(x(:,2)))/(max(x(:,2))-min(x(:,2))),(x(:,3)-min(x(:,3)))/(max(x(:,3))-min(x(:,3))),(x(:,4)-min(x(:,4)))/(max(x(:,4))-min(x(:,4))),100,color,'filled');

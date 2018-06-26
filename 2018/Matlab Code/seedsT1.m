@@ -12,7 +12,7 @@ dis=zeros(n,p,m);
 disbar=zeros(n,m);
 devbar=zeros(n,m);
 dev=zeros(n,p,m);
-beta=100;
+beta=0.5;
 prevdisbar=zeros(n,m);
 comparison2=1;
 s=zeros(n,m);
@@ -103,7 +103,7 @@ N=size(S,1);
 A=zeros(N,N); 
 R=zeros(N,N); 
 S=(S+(eps*randn(N,N))*(max(S(:))-min(S(:))))*40; % Remove degeneracies
-lam=0.8; % Set damping factor
+lam=0.5; % Set damping factor
 for i=1:100
     % Compute responsibilities
     Rold=R;

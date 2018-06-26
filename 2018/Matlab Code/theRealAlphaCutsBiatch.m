@@ -11,10 +11,10 @@ p=2:0.1:5;
 c=(beta1+beta2)/2;
 sig=(beta2-beta1)/7;
 syms m;
-gauss(m)=gaussmf(m,[sig c]);
-boss=matlabFunction(gauss);
+gauss(m)=gaussmf(m,[sig c]);%this forms a guass function in the form of a string
+boss=matlabFunction(gauss);%forms the actual usable gauss function
 gaussinv=finverse(gauss);
-F=matlabFunction(gaussinv);
+F=matlabFunction(gaussinv);%inverse gauss function
 L=zeros(5,2);
 update=0.1;
 for I=1:5

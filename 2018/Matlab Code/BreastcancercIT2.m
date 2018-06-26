@@ -33,7 +33,7 @@ end
 
 
 %iterations
-for it=1:50
+for it=1:1
     
 sum2=sum((dis.*mf),2);
 sum3=sum(mf,2);
@@ -109,7 +109,7 @@ N=size(S,1);
 A=zeros(N,N); 
 R=zeros(N,N); 
 S=(S+(eps*randn(N,N))*(max(S(:))-min(S(:)))); % Remove degeneracies
-lam=0.90; % Set damping factor
+lam=0.86; % Set damping factor
 for i=1:100
     % Compute responsibilities
     Rold=R;

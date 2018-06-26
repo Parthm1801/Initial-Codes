@@ -12,8 +12,8 @@ dis=zeros(n,p,m);
 disbar=zeros(n,m);
 devbar=zeros(n,m);
 dev=zeros(n,p,m);
-beta1=100;
-beta2=1000;
+beta1=0.1;
+beta2=3;
 prevdisbar=zeros(n,m);
 comparison2=1;
 s=zeros(n,m);
@@ -34,7 +34,7 @@ end
 
 
 %iterations
-for it=1:50
+for it=1:15
     
 sum2=sum((dis.*mf),2);
 sum3=sum(mf,2);
@@ -110,7 +110,7 @@ N=size(S,1);
 A=zeros(N,N); 
 R=zeros(N,N); 
 S=(S+(eps*randn(N,N))*(max(S(:))-min(S(:)))); % Remove degeneracies
-lam=0.8; % Set damping factor
+lam=0.6; % Set damping factor
 for i=1:100
     % Compute responsibilities
     Rold=R;

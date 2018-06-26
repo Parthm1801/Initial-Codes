@@ -47,10 +47,11 @@ for i=1:n
         end
 end
 
-
+l=0;
 %iterations
-while comparison2==1
-    
+%while comparison2==1
+for iter=1:50
+    l=l+1;
     for i=1:n
         for k=1:m
             if(i~=k)
@@ -228,6 +229,7 @@ end
 for i=1:n
     acc(y(i),ybar(i))= acc(y(i),ybar(i))+1;
 end
+disp(l);
 
 disp(acc);
 

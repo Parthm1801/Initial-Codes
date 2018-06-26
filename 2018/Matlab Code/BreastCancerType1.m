@@ -32,7 +32,7 @@ end
 
 
 %iterations
-for it=1:50
+for it=1:13
     
 sum2=sum((dis.*mf),2);
 sum3=sum(mf,2);

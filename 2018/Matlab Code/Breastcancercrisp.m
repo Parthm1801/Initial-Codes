@@ -25,7 +25,7 @@ N=size(S,1);
 A=zeros(N,N); %Initalizing availability matrix to zero
 R=zeros(N,N); %Initalizing responsibility matrix to zero
 S=S+(eps*randn(N,N))*(max(S(:))-min(S(:)))*2; % Remove degeneracies
-lam=0.95; % Set damping factor
+lam=0.92; % Set damping factor
 
 
 for i=1:100 %number of iterations set to 100, can be changed depending on dataset
